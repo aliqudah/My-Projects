@@ -17,7 +17,6 @@ An all-in-one tool that transforms your collection of research paper PDFs into a
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -69,3 +68,97 @@ An all-in-one tool that transforms your collection of research paper PDFs into a
    ```bash
    git clone https://github.com/yourusername/automated-literature-review-generator.git
    cd automated-literature-review-generator
+Install Dependencies:
+
+Install the required Python packages:
+
+bash
+Copy
+Edit
+pip install pymupdf requests
+Alternatively, if a requirements.txt file is included:
+
+bash
+Copy
+Edit
+pip install -r requirements.txt
+## Configuration
+Before running the script, update the following in the main Python file:
+
+Gemini API Key:
+Replace the placeholder value in the GEMINI_API_KEY variable with your actual API key.
+
+PDF Folder:
+Ensure you have a folder named papers containing the PDF files you wish to process. You can change the folder name by modifying the DEFAULT_PDF_FOLDER variable.
+
+Citation Style:
+Adjust the citation_style variable in the main() function to one of the supported styles: "APA", "MLA", or "IEEE".
+
+Processing Limits:
+Modify MAX_PAGES and MAX_TEXT_LENGTH as needed to control the amount of text processed from each PDF.
+
+## Usage
+Run the script from the command line:
+
+bash
+Copy
+Edit
+python script_name.py
+What Happens Under the Hood?
+PDF Discovery:
+The script scans the specified folder for PDF files.
+
+Text Extraction:
+Extracts text from each PDF, up to a defined page and character limit.
+
+Summarization:
+Submits extracted text to the Gemini API to produce a brief literature review entry, using varied introductory phrases (e.g., "This study", "A recent examination") to add uniqueness.
+
+Citation and Bibliography Generation:
+Attempts to extract a DOI from the text. If found, fetches bibliographic metadata from CrossRef; otherwise, it parses the filename for citation details.
+
+Formats in-text citations and bibliography entries based on the selected citation style.
+Final Document Generation:
+Combines literature review entries and bibliography into a single, cohesive document saved as full_literature_review.txt.
+
+Error Logging:
+Any issues during processing are logged in log.txt for review.
+
+## Customization
+Introductory Phrases:
+Edit the INTRO_VARIATIONS list to change the variety of phrases used in summary entries.
+
+Citation Formatting:
+Modify the format_citation and format_bibliography_entry functions to adjust how citations are displayed.
+
+API Retry Strategy:
+Adjust the retry mechanism and backoff timing in the API request functions if needed.
+
+Output File Names:
+Change the names of the output files (literature_review.txt, full_literature_review.txt, log.txt) by modifying the corresponding variables.
+
+## Troubleshooting
+API Errors or Rate Limits:
+Check log.txt for detailed error messages. The script includes retry logic with exponential backoff for handling rate limits.
+
+Missing PDFs or Incorrect Paths:
+Ensure that the specified PDF folder exists and contains valid .pdf files.
+
+DOI Extraction Issues:
+If the DOI is not detected, the script defaults to extracting citation details from the filename. Verify your PDFs contain recognizable DOI patterns.
+
+Permission Issues:
+Make sure you have read and write permissions for the folders and files used by the script.
+
+## Contributing
+Contributions are welcome! If you have suggestions, bug fixes, or improvements:
+
+Fork the repository.
+Create a new branch (git checkout -b feature/your-feature).
+Commit your changes (git commit -am 'Add new feature').
+Push to your branch (git push origin feature/your-feature).
+Open a Pull Request describing your changes.
+For major changes, please open an issue first to discuss what you would like to modify.
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for detailed information.
